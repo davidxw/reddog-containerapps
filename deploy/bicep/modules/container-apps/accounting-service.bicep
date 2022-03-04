@@ -8,7 +8,7 @@ param sqlAdminLoginPassword string
 //param sbRootConnectionString string
 //param sqlConnectionString string
 
-resource cappsEnv 'Microsoft.Web/kubeEnvironments@2021-03-01' existing = {
+resource cappsEnv 'Microsoft.App/managedEnvironments@2022-01-01-preview' existing = {
   name: containerAppsEnvName
 }
 
@@ -16,11 +16,11 @@ resource serviceBus 'Microsoft.ServiceBus/namespaces@2021-06-01-preview' existin
   name: serviceBusNamespaceName
 }
 
-resource accountingService 'Microsoft.Web/containerApps@2021-03-01' = {
+resource accountingService 'Microsoft.App/containerApps@2022-01-01-preview' = {
   name: 'accounting-service'
   location: location
   properties: {
-    kubeEnvironmentId: cappsEnv.id
+    managedEnvironmentId: cappsEnv.id
     template: {
       containers: [
         {
